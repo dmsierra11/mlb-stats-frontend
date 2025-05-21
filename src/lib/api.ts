@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:8000/api/v1";
+const API_BASE_URL = "http://127.0.0.1:8000/api/v1";
 
 // Types for API responses
 export interface Player {
@@ -16,14 +16,15 @@ export interface PlayerStats {
 }
 
 export interface Team {
-  id: string;
+  id: number;
   name: string;
-  city: string;
-  division: string;
-  record?: {
-    wins: number;
-    losses: number;
+  locationName: string;
+  division: {
+    id: number;
+    name: string;
+    link: string;
   };
+  // Add other fields as needed
 }
 
 // API client functions
@@ -72,10 +73,13 @@ export const getPlayerStats = (
 };
 
 // Team endpoints
-export const getTeams = () => fetchMLBData<Team[]>("/mlb/teams");
+export const getTeams = () => {
+  return fetchMLBData<Team[]>("/mlb/teams");
+};
 
-export const getTeamInfo = (teamId: string) =>
-  fetchMLBData<Team>(`/mlb/teams/${teamId}`);
+export const getTeamInfo = (teamId: string) => {
+  return fetchMLBData<Team>(`/mlb/teams/${teamId}`);
+};
 
 export const getTeamRoster = (teamId: string) =>
   fetchMLBData<Player[]>(`/mlb/teams/${teamId}/roster`);
