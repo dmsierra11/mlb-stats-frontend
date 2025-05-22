@@ -13,10 +13,6 @@ interface Team {
         name: string;
         link: string;
     };
-    // record?: {
-    //     wins: number;
-    //     losses: number;
-    // };
 }
 
 export default function TeamsPage() {
@@ -69,7 +65,6 @@ export default function TeamsPage() {
                         name={team.name}
                         city={team.locationName}
                         division={team.division.name}
-                        record={team.record}
                     />
                 ))}
             </div>
