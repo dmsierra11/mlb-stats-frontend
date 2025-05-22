@@ -4,6 +4,8 @@ const API_BASE_URL = "http://127.0.0.1:8000/api/v1";
 export interface Player {
   id: string;
   name: string;
+  position?: string;
+  jersey_number?: string;
   // Add other player fields as needed
 }
 
@@ -25,6 +27,26 @@ export interface Team {
     link: string;
   };
   // Add other fields as needed
+}
+
+export interface RawRosterPlayer {
+  person: {
+    id: number;
+    fullName: string;
+    link: string;
+  };
+  jerseyNumber?: string;
+  position?: {
+    code: string;
+    name: string;
+    type: string;
+    abbreviation: string;
+  };
+  status?: {
+    code: string;
+    description: string;
+  };
+  parentTeamId?: number;
 }
 
 // API client functions
@@ -82,4 +104,4 @@ export const getTeamInfo = (teamId: string) => {
 };
 
 export const getTeamRoster = (teamId: string) =>
-  fetchMLBData<Player[]>(`/mlb/teams/${teamId}/roster`);
+  fetchMLBData<RawRosterPlayer[]>(`/mlb/teams/${teamId}/roster`);
